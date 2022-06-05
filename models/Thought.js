@@ -35,7 +35,7 @@ const ThoughtSchema = new Schema({
 const ReactionSchema = new Schema({
     reactionId: {
         type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId();
+        default: () => new Types.ObjectId()
     },
     reactionBody: {
         type: String,
@@ -60,8 +60,11 @@ const ReactionSchema = new Schema({
     id: false
 })
 
-// ThoughtSchema.virtual('reactionCount').get(function(){
-//     return this.reaction.length;
-//   });
+ThoughtSchema.virtual('reactionCount').get(function(){
+    return this.reaction.length;
+  });
+
+
+const Reaction = model('Reaction', ReactionSchema)
 const Thought = model('Thought', ThoughtSchema)
-module.exports = Thought
+module.exports = {Thought, Reaction}
