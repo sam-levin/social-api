@@ -60,11 +60,12 @@ const userController = {
             .catch(err => res.status(400).json(err))
     },
     addFriend({ params }, res) {
-        User.findOneAndUpdate( 
-            { _id: params.friendId },
-            { $push: {friends: params.id }},
-            { new: true, runValidators: true }
-            )
+        // code for making mutual friendships on addition (what facebook friends wouuld be like whereas right now its more of an instagram like 1-way friendship)
+        // User.findOneAndUpdate( 
+        //     { _id: params.friendId },
+        //     { $push: {friends: params.id }},
+        //     { new: true, runValidators: true }
+        //     )
         User.findOneAndUpdate( 
             { _id: params.id },
             { $push: {friends: params.friendId }},
@@ -80,11 +81,13 @@ const userController = {
             .catch(err => res.json(err));
     },
     removeFriend({ params }, res) {
+        console.log(params)
         User.findOneAndUpdate(
             { _id: params.id},
-            { $pull: { friends: { _id: params.friendId}}},
+            { $pull: { friends: params.friendId}},
             { new: true },
         )
+        // mutual friendship code cont.
         // User.findOneAndUpdate(
         //     { _id: params.friendId},
         //     { $pull: {friends: {friendId: params.id}}},
