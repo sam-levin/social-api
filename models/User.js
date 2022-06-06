@@ -1,5 +1,6 @@
 const { Schema, model, Types } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
+const { schema } = require('./Thought');
 
 const UserSchema = new Schema ({
     username: {
@@ -12,7 +13,8 @@ const UserSchema = new Schema ({
         type: String,
         required: true,
         unique: true,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']    },
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']    
+    },
     thoughts: [
         {
             type: Schema.Types.ObjectId,
@@ -34,6 +36,6 @@ UserSchema.virtual('friendCount').get(function(){
     return this.friends.length;
   });
 
-const User = model('User', UserSchema) 
+const User = model('User', UserSchema)
 
 module.exports = User
